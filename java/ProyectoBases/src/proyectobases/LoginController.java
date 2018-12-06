@@ -5,15 +5,21 @@
  */
 package proyectobases;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
 /**
  *
@@ -32,9 +38,19 @@ public class LoginController implements Initializable {
     private Label labelEstado;
     
     @FXML
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
+    private void handleButtonAction(ActionEvent event) throws IOException {
+        if (textUsuario.getText().toString().equals("admin") && textClave.getText().toString().equals("admin")){
+            Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+            Scene dashboardScene = new Scene(dashboardParent);
+
+            Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+            window.setScene(dashboardScene);
+            window.show();
+        }
+        else{
+            labelEstado.setText("Usuario o clave equivocada");
+        }
+        
     }
     
     @Override
