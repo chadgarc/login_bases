@@ -14,6 +14,8 @@ import java.sql.ResultSet ;
 
 import java.util.List ;
 import java.util.ArrayList ;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -52,5 +54,21 @@ public class EmpleadoDataAccessor {
         } 
     }
 
-    // other methods, eg. addEmpleado(...) etc
+    public void addEmpleado(String usuario, String nombre, String apellido, String cargo, String clave){
+        Statement stmnt=null;
+        String values = "'"+usuario+"', '"+nombre+"', '"+apellido+"', '"+cargo+"', '"+clave+"'";
+        try {
+            stmnt = connection.createStatement();
+        } catch (SQLException ex) {
+            System.out.println("Fallo la conexion");
+            Logger.getLogger(EmpleadoDataAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            stmnt.executeUpdate("insert into empleado values("+values+")");
+        } catch (SQLException ex) {
+            System.out.println("Fallo el statement");
+            Logger.getLogger(EmpleadoDataAccessor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+// other methods, eg. addEmpleado(...) etc
 }

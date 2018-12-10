@@ -7,6 +7,7 @@ package proyectobases;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -16,20 +17,30 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import proyectobases.DBSClasses.EmpleadoDataAccessor;
 
 /**
  * FXML Controller class
  *
  * @author Cesar
  */
-public class DashboardController implements Initializable {
+public class CrearEmpleadoController implements Initializable {
 
     @FXML
-    private Label labelDashboard;
+    private TextField textUsuario;
     @FXML
-    private Button buttonCrearEmpleado;
+    private Button buttonCrearUsuario;
+    @FXML
+    private PasswordField textContraseña;
+    @FXML
+    private TextField textNombre;
+    @FXML
+    private TextField textApellido;
+    @FXML
+    private TextField textCargo;
 
     /**
      * Initializes the controller class.
@@ -40,8 +51,10 @@ public class DashboardController implements Initializable {
     }    
 
     @FXML
-    private void lanzarCreacion(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearEmpleado.fxml"));
+    private void crearUsuario(ActionEvent event) throws IOException, SQLException {
+        EmpleadoDataAccessor empleadoData = new EmpleadoDataAccessor();
+        empleadoData.addEmpleado(textUsuario.getText().toString(), textNombre.getText().toString(), textApellido.getText().toString(), textCargo.getText().toString(), textContraseña.getText().toString());
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
