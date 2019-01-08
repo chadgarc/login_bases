@@ -54,7 +54,7 @@ public class CrearEmpleadoController implements Initializable {
     private void crearUsuario(ActionEvent event) throws IOException, SQLException {
         EmpleadoDataAccessor empleadoData = new EmpleadoDataAccessor();
         empleadoData.addEmpleado(textUsuario.getText().toString(), textNombre.getText().toString(), textApellido.getText().toString(), textCargo.getText().toString(), textContraseña.getText().toString());
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);

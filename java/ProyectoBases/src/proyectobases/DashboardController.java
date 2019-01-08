@@ -41,7 +41,7 @@ public class DashboardController implements Initializable {
 
     @FXML
     private void lanzarCreacion(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearEmpleado.fxml"));
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);

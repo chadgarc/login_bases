@@ -12,7 +12,7 @@
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="buttonCrearEmpleado" layoutX="45.0" layoutY="58.0" mnemonicParsing="false" onAction="#lanzarCreacion" text="Crear nuevo empleado" />
+      <Button fx:id="buttonCrearEmpleado" layoutX="45.0" layoutY="58.0" mnemonicParsing="false" onAction="#lanzarCreacion" text="Empleados" />
       <Button layoutX="493.0" layoutY="347.0" mnemonicParsing="false" text="Empleados" />
       <Button layoutX="45.0" layoutY="99.0" mnemonicParsing="false" text="Paquetes de Viajes" />
       <Button layoutX="45.0" layoutY="140.0" mnemonicParsing="false" text="Clientes" />
