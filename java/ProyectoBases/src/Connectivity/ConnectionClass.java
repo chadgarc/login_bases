@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class ConnectionClass {
     public Connection connection;
     public Connection getConnection(){
-        String dbName = "agencia";
+        String dbName = "dbmundotravel";
         String userName = "root";
         String password = "1234";
         
@@ -24,7 +24,7 @@ public class ConnectionClass {
             connection = DriverManager.getConnection("jdbc:mysql://localhost/"+dbName,userName,password);
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("Fallo la conexion cojudo");
+            System.out.println("Fallo la conexion");
         }
         return connection;
     }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane id="AnchorPane" prefHeight="172.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.CrearClienteController">
+   <children>
+      <VBox layoutX="33.0" layoutY="35.0" prefHeight="300.0" prefWidth="235.0" spacing="20.0">
+         <children>
+            <TextField fx:id="textId" promptText="Id" />
+            <TextField fx:id="textNombre" promptText="Nombre" />
+            <TextField fx:id="textApellido" promptText="Apellido" />
+            <TextField fx:id="textFechaNacimiento" promptText="Fecha de Nacimiento" />
+            <Button fx:id="buttonCrearCliente" mnemonicParsing="false" onAction="#crearCliente" text="Crear Cliente" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

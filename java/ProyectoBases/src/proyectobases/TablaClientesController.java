@@ -5,7 +5,6 @@
  */
 package proyectobases;
 
-import proyectobases.DBSClasses.TBEmpleado;
 import Connectivity.ConnectionClass;
 import java.io.IOException;
 import java.net.URL;
@@ -27,87 +26,85 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import proyectobases.DBSClasses.TBCliente;
 
 /**
  * FXML Controller class
  *
  * @author Cesar
  */
-public class TablaEmpleadosController implements Initializable {
+public class TablaClientesController implements Initializable {
 
     @FXML
-    private Button nuevoEmpleado;
+    private Label LabelCliente;
     @FXML
-    private Button deleteEmpleado;
+    private TableView<TBCliente> TablaClientes;
     @FXML
-    private Button updateEmpleado;
+    private TableColumn<TBCliente, String> ColumnaId;
     @FXML
-    private Button backButton;
+    private TableColumn<TBCliente, String> ColumnaNombre;
     @FXML
-    private TableView<TBEmpleado> TableEmpleados;
+    private TableColumn<TBCliente, String> ColumnaApellido;
     @FXML
-    private TableColumn<TBEmpleado,String> TableNombre;
+    private TableColumn<TBCliente, String> ColumnaFecha;
     @FXML
-    private TableColumn<TBEmpleado,String> TableApellido;
+    private Button BotonCrearCliente;
     @FXML
-    private TableColumn<TBEmpleado,String> TableCargo;
+    private Button BotonEliminarCliente;
     @FXML
-    private TableColumn<TBEmpleado,String> TableClave;
+    private Button BotonActualizarCliente;
     @FXML
-    private TableColumn<TBEmpleado,String> TableUsuario;
-
+    private Button BotonRegresar;
+    
     private Connection connection;
     
-    private ObservableList<TBEmpleado> oblist = FXCollections.observableArrayList();
-    /**
-     * Initializes the controller class.
-     */
+    private ObservableList<TBCliente> oblist = FXCollections.observableArrayList();
+
     @Override
-    public void initialize(URL url, ResourceBundle rb)  {
-        // TODO
+    public void initialize(URL url, ResourceBundle rb) {
         ConnectionClass connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
         Statement stmnt;
         ResultSet rs;
         try {
             stmnt = connection.createStatement();
-            rs = stmnt.executeQuery("select * from empleado");
+            rs = stmnt.executeQuery("select * from cliente");
             
             while (rs.next()){
-                oblist.add(new TBEmpleado(rs.getString("nombre"),rs.getString("apellido"),rs.getString("cargo"),rs.getString("clave"),rs.getString("usuario")));
+                oblist.add(new TBCliente(rs.getString("id"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("fechaNacimiento")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TablaEmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        TableNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        TableApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        TableCargo.setCellValueFactory(new PropertyValueFactory<>("cargo"));
-        TableClave.setCellValueFactory(new PropertyValueFactory<>("clave"));
-        TableUsuario.setCellValueFactory(new PropertyValueFactory<>("usuario"));
+        ColumnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
+        ColumnaFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
         
-        TableEmpleados.setItems(oblist);
+        TablaClientes.setItems(oblist);
     }    
 
     @FXML
-    private void CrearNuevoEmpleado(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearEmpleado.fxml"));
+    private void CrearCliente(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearCliente.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
-        window.show(); 
+        window.show();
     }
 
     @FXML
-    private void EliminarEmpleado(ActionEvent event) {
-        TBEmpleado empleadoSeleccionado = TableEmpleados.getSelectionModel().getSelectedItem();
-        String usuarioSeleccionado = empleadoSeleccionado.getUsuario();
-        String query = "delete from empleado where usuario = ?";
+    private void EliminarCliente(ActionEvent event) {
+        TBCliente clienteSeleccionado = TablaClientes.getSelectionModel().getSelectedItem();
+        String usuarioSeleccionado = clienteSeleccionado.getId();
+        String query = "delete from cliente where usuario = ?";
         PreparedStatement pstmt = null;
         ConnectionClass connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
@@ -118,30 +115,24 @@ public class TablaEmpleadosController implements Initializable {
             pstmt = connection.prepareStatement(query); 
             pstmt.setString(1, usuarioSeleccionado);
             pstmt.executeUpdate();
-            rs = stmnt.executeQuery("select * from empleado");
+            rs = stmnt.executeQuery("select * from cliente");
             oblist.removeAll(oblist);
-            TableEmpleados.setItems(oblist);
+            TablaClientes.setItems(oblist);
             while (rs.next()){
-                oblist.add(new TBEmpleado(rs.getString("nombre"),rs.getString("apellido"),rs.getString("cargo"),rs.getString("clave"),rs.getString("usuario")));
+                oblist.add(new TBCliente(rs.getString("id"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("fechaNacimiento")));
             }
-            TableEmpleados.setItems(oblist);
+            TablaClientes.setItems(oblist);
         } catch (SQLException ex) {
             Logger.getLogger(TablaEmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
     }
 
     @FXML
-    private void ActualizarEmpleado(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("ActualizarEmpleado.fxml"));
-        Scene dashboardScene = new Scene(dashboardParent);
-        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
-        window.setScene(dashboardScene);
-        window.show();
+    private void ActualizarCliente(ActionEvent event) {
     }
 
     @FXML
-    private void Regresar(ActionEvent event) throws IOException {
+    private void regresar(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
