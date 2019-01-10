@@ -32,39 +32,41 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import proyectobases.DBSClasses.TBCliente;
+import proyectobases.DBSClasses.TBPaquete;
 
 /**
  * FXML Controller class
  *
  * @author Cesar
  */
-public class TablaClientesController implements Initializable {
+public class TablaPaquetesController implements Initializable {
 
     @FXML
-    private Label LabelCliente;
+    private Label LabelPaquetes;
     @FXML
-    private TableView<TBCliente> TablaClientes;
+    private TableView<TBPaquete> TablaPaquetes;
     @FXML
-    private TableColumn<TBCliente, String> ColumnaId;
+    private TableColumn<TBPaquete, String> ColumnaIdPaquete;
     @FXML
-    private TableColumn<TBCliente, String> ColumnaNombre;
+    private TableColumn<TBPaquete, String> ColumnaNombre;
     @FXML
-    private TableColumn<TBCliente, String> ColumnaApellido;
+    private TableColumn<TBPaquete, String> ColumnaDescripcion;
     @FXML
-    private TableColumn<TBCliente, String> ColumnaFecha;
+    private Button BotonCrearPaquete;
     @FXML
-    private Button BotonCrearCliente;
+    private Button BotonEliminarPaquete;
     @FXML
-    private Button BotonEliminarCliente;
-    @FXML
-    private Button BotonActualizarCliente;
+    private Button BotonActualizarPaquete;
     @FXML
     private Button BotonRegresar;
     
     private Connection connection;
     
-    private ObservableList<TBCliente> oblist = FXCollections.observableArrayList();
+    private ObservableList<TBPaquete> oblist = FXCollections.observableArrayList();
 
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         ConnectionClass connectionClass = new ConnectionClass();
@@ -73,27 +75,26 @@ public class TablaClientesController implements Initializable {
         ResultSet rs;
         try {
             stmnt = connection.createStatement();
-            rs = stmnt.executeQuery("select * from cliente");
+            rs = stmnt.executeQuery("select * from paquetedeviaje");
             
             while (rs.next()){
-                oblist.add(new TBCliente(rs.getString("idCliente"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("fechaNacimiento")));
+                oblist.add(new TBPaquete(Integer.valueOf(rs.getString("idPaquete")),rs.getString("nombre"),rs.getString("descripcion")));
             }
         } catch (SQLException ex) {
             Logger.getLogger(TablaEmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        ColumnaId.setCellValueFactory(new PropertyValueFactory<>("id"));
+        ColumnaIdPaquete.setCellValueFactory(new PropertyValueFactory<>("idPaquete"));
         ColumnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        ColumnaApellido.setCellValueFactory(new PropertyValueFactory<>("apellido"));
-        ColumnaFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        ColumnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
         
-        TablaClientes.setItems(oblist);
+        TablaPaquetes.setItems(oblist);
     }    
 
     @FXML
-    private void CrearCliente(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearCliente.fxml"));
+    private void CrearPaquete(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("CrearPaquete.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
@@ -101,10 +102,10 @@ public class TablaClientesController implements Initializable {
     }
 
     @FXML
-    private void EliminarCliente(ActionEvent event) {
-        TBCliente clienteSeleccionado = TablaClientes.getSelectionModel().getSelectedItem();
-        String usuarioSeleccionado = clienteSeleccionado.getId();
-        String query = "delete from cliente where idCliente = ?";
+    private void EliminarPaquete(ActionEvent event) {
+        TBPaquete clienteSeleccionado = TablaPaquetes.getSelectionModel().getSelectedItem();
+        int usuarioSeleccionado = clienteSeleccionado.getIdPaquete();
+        String query = "delete from paquetedeviaje where idPaquete = ?";
         PreparedStatement pstmt = null;
         ConnectionClass connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
@@ -113,31 +114,31 @@ public class TablaClientesController implements Initializable {
         try {
             stmnt = connection.createStatement();
             pstmt = connection.prepareStatement(query); 
-            pstmt.setString(1, usuarioSeleccionado);
+            pstmt.setInt(1, usuarioSeleccionado);
             pstmt.executeUpdate();
-            rs = stmnt.executeQuery("select * from cliente");
+            rs = stmnt.executeQuery("select * from paquetedeviaje");
             oblist.removeAll(oblist);
-            TablaClientes.setItems(oblist);
+            TablaPaquetes.setItems(oblist);
             while (rs.next()){
-                oblist.add(new TBCliente(rs.getString("idCliente"),rs.getString("nombre"),rs.getString("apellido"),rs.getString("fechaNacimiento")));
+                oblist.add(new TBPaquete(Integer.valueOf(rs.getString("idPaquete")),rs.getString("nombre"),rs.getString("descripcion")));
             }
-            TablaClientes.setItems(oblist);
+            TablaPaquetes.setItems(oblist);
         } catch (SQLException ex) {
-            Logger.getLogger(TablaEmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TablaPaquetesController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     @FXML
-    private void ActualizarCliente(ActionEvent event) {
+    private void ActualizarPaquete(ActionEvent event) {
     }
 
     @FXML
-    private void regresar(ActionEvent event) throws IOException {
+    private void Regresar(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
-        window.show(); 
+        window.show();
     }
     
 }

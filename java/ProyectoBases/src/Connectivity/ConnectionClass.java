@@ -15,7 +15,7 @@ import java.sql.DriverManager;
 public class ConnectionClass {
     public Connection connection;
     public Connection getConnection(){
-        String dbName = "dbmundotravel";
+        String dbName = "bdmundotravel";
         String userName = "root";
         String password = "1234";
         

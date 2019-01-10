@@ -29,9 +29,12 @@ public class DashboardController implements Initializable {
     @FXML
     private Label labelDashboard;
     @FXML
-    private Button buttonCrearEmpleado;
-
-    /**
+    private Button buttonEmpleado;
+    @FXML
+    private Button buttonPaquetes;
+    @FXML
+    private Button buttonClientes;
+/**
      * Initializes the controller class.
      */
     @Override
@@ -42,6 +45,33 @@ public class DashboardController implements Initializable {
     @FXML
     private void lanzarCreacion(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show(); 
+    }
+
+    @FXML
+    private void lanzarEmpleado(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
+    }
+
+    @FXML
+    private void lanzarPaquete(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaPaquetes.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
+    }
+
+    @FXML
+    private void lanzarCliente(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaClientes.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);

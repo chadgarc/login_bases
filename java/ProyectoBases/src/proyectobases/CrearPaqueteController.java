@@ -22,7 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import proyectobases.DBSClasses.EmpleadoDataAccessor;
@@ -32,18 +32,16 @@ import proyectobases.DBSClasses.EmpleadoDataAccessor;
  *
  * @author Cesar
  */
-public class CrearClienteController implements Initializable {
+public class CrearPaqueteController implements Initializable {
 
     @FXML
-    private TextField textNombre;
+    private TextField TextIdPaquete;
     @FXML
-    private TextField textApellido;
+    private TextField TextNombre;
     @FXML
-    private TextField textId;
+    private TextArea TextDescripcion;
     @FXML
-    private TextField textFechaNacimiento;
-    @FXML
-    private Button buttonCrearCliente;
+    private Button BotonCrearPaquete;
 
     /**
      * Initializes the controller class.
@@ -54,11 +52,11 @@ public class CrearClienteController implements Initializable {
     }    
 
     @FXML
-    private void crearCliente(ActionEvent event) throws IOException {
+    private void CrearPaquete(ActionEvent event) throws IOException {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
         Statement stmnt=null;
-        String values = "'"+textId.getText().toString()+"', '"+textNombre.getText().toString()+"', '"+textApellido.getText().toString()+"', '"+textFechaNacimiento.getText().toString()+"'";
+        String values = "'"+TextIdPaquete.getText().toString()+"', '"+TextNombre.getText().toString()+"', '"+TextDescripcion.getText().toString()+"'";
         try {
             stmnt = connection.createStatement();
         } catch (SQLException ex) {
@@ -66,12 +64,12 @@ public class CrearClienteController implements Initializable {
             Logger.getLogger(EmpleadoDataAccessor.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            stmnt.executeUpdate("insert into cliente values("+values+")");
+            stmnt.executeUpdate("insert into paquetedeviaje values("+values+")");
         } catch (SQLException ex) {
             System.out.println("Fallo el statement");
             Logger.getLogger(EmpleadoDataAccessor.class.getName()).log(Level.SEVERE, null, ex);
         }
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaClientes.fxml"));
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaPaquetes.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
