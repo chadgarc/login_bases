@@ -13,9 +13,23 @@ create table cliente(
 idCliente varchar(10),
 nombre  varchar(45),
 apellido varchar(45),
-fechaNacimiento date,
+fechaNacimiento varchar(45),
 primary key(idCliente)
 );
+create table paqueteDeViaje(
+idPaquete int auto_increment,
+nombre varchar(50),
+descripcion varchar(200),
+primary key(idPaquete)
+);
+create table registro(
+idCliente varchar(10),
+idPaquete int,
+primary key (idCliente,idPaquete),
+foreign key (idCliente) references cliente(idCliente),
+foreign key (idPaquete) references paqueteDeViaje(idPaquete)
+);
+
 create table direccion(
 idDireccion varchar(10),
 direccion1 varchar(50),
@@ -114,6 +128,16 @@ foreign key(direccionPuerto) references direccion(idDireccion),
 foreign key(idCliente) references cliente(idCliente)
 );
 
+delimiter $$
+create procedure crearEmpleado(IN usuario varchar(20), IN nombre varchar(20), IN apellido varchar(20), IN cargo varchar(20), IN clave varchar(20))
+BEGIN
+INSERT INTO empleado values(usuario,nombre,apellido,cargo,clave);
+end;$$
+
+create view conteoRegistros as
+select p.nombre, count(r.idCliente)
+from registro r right join paquetedeviaje p on r.idPaquete = p.idPaquete
+group by p.idPaquete;
 
 
 
