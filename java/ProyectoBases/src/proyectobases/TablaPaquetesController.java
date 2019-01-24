@@ -129,7 +129,12 @@ public class TablaPaquetesController implements Initializable {
     }
 
     @FXML
-    private void ActualizarPaquete(ActionEvent event) {
+    private void ActualizarPaquete(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("ActualizarPaquete.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
 
     @FXML

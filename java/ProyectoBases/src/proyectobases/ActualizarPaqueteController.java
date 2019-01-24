@@ -26,9 +26,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -36,20 +34,18 @@ import javafx.stage.Stage;
  *
  * @author Cesar
  */
-public class ActualizarEmpleadoController implements Initializable {
+public class ActualizarPaqueteController implements Initializable {
 
     @FXML
-    private Label LabelActualizacion;
-    @FXML
-    private Button BotonActualizar;
-    @FXML
-    private Button BotonRegresar;
-    @FXML
-    private ComboBox<String> comboboxEmpleado;
+    private ComboBox<String> comboboxpaquete;
     @FXML
     private ComboBox<String> comboboxdato;
     @FXML
     private TextArea textoactualizacion;
+    @FXML
+    private Button botonActualizar;
+    @FXML
+    private Button botonRegresar;
     
     private Connection connection;
 
@@ -58,7 +54,7 @@ public class ActualizarEmpleadoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ArrayList<String> nombreEmpleados = new ArrayList<String>();
+        ArrayList<String> nombrePaquetes = new ArrayList<String>();
         ArrayList<String> nombreDatos = new ArrayList<String>();
         ConnectionClass connectionClass = new ConnectionClass();
         connection = connectionClass.getConnection();
@@ -66,55 +62,24 @@ public class ActualizarEmpleadoController implements Initializable {
         ResultSet rs;
         try {
             stmnt = connection.createStatement();
-            rs = stmnt.executeQuery("SELECT usuario,nombre,apellido FROM empleado");
+            rs = stmnt.executeQuery("SELECT idPaquete,nombre FROM paquetedeviaje");
             while (rs.next()){
-                String nombrePaquete = rs.getString("usuario") + " " + rs.getString("nombre")+ " " + rs.getString("apellido");
-                nombreEmpleados.add(nombrePaquete);
+                String nombrePaquete = rs.getString("idPaquete") + ".- " + rs.getString("nombre");
+                nombrePaquetes.add(nombrePaquete);
             }
             
         } catch (SQLException ex) {
             Logger.getLogger(RegistrarNuevoController.class.getName()).log(Level.SEVERE, null, ex);
         }
         nombreDatos.add("nombre");
-        nombreDatos.add("apellido");
-        nombreDatos.add("cargo");
-        nombreDatos.add("clave");
-        comboboxEmpleado.getItems().addAll(nombreEmpleados);
+        nombreDatos.add("descripcion");
+        comboboxpaquete.getItems().addAll(nombrePaquetes);
         comboboxdato.getItems().addAll(nombreDatos);
     }    
 
     @FXML
-    private void ActualizarEmpleado(ActionEvent event) throws SQLException, IOException {
-        String[] valorPaquete = comboboxEmpleado.getValue().split(" ");
-        String IdUsuario = valorPaquete[0];
-        String dato = comboboxdato.getValue();
-        ConnectionClass connectionClass = new ConnectionClass();
-        connection = connectionClass.getConnection();
-        String query = "";
-        String datoActualizado = "";
-        PreparedStatement stmnt;
-        if (dato.equals("nombre")){
-            datoActualizado = textoactualizacion.getText();
-            query = "update empleado set nombre = ? where usuario = ?";
-        }
-        if (dato.equals("apellido")){
-            datoActualizado = textoactualizacion.getText();
-            query = "update empleado set apellido = ? where usuario = ?";           
-        }
-        if (dato.equals("cargo")){
-            datoActualizado = textoactualizacion.getText();
-            query = "update empleado set cargo = ? where usuario = ?";
-        }
-        if (dato.equals("clave")){
-            datoActualizado = textoactualizacion.getText();
-            query = "update empleado set clave = ? where usuario = ?";           
-        }
-        stmnt = connection.prepareStatement(query);
-        stmnt.setString(2, IdUsuario);
-        stmnt.setString(1,datoActualizado);
-        stmnt.executeUpdate();
-        
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
+    private void regresar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaPaquetes.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
@@ -122,8 +87,32 @@ public class ActualizarEmpleadoController implements Initializable {
     }
 
     @FXML
-    private void AccionRegresar(ActionEvent event) throws IOException {
-        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
+    private void actualizarDatos(ActionEvent event) throws SQLException, IOException {
+        String[] valorPaquete = comboboxpaquete.getValue().split(".-");
+        String IdPaquete = valorPaquete[0];
+        String dato = comboboxdato.getValue();
+        ConnectionClass connectionClass = new ConnectionClass();
+        connection = connectionClass.getConnection();
+        String query = "";
+        String datoActualizado = "";
+        PreparedStatement stmnt;
+        ResultSet rs;
+        if (dato.equals("nombre")){
+            datoActualizado = textoactualizacion.getText();
+            query = "update paquetedeviaje set nombre = ? where idPaquete = ?";
+            
+            
+        }
+        if (dato.equals("descripcion")){
+            datoActualizado = textoactualizacion.getText();
+            query = "update paquetedeviaje set descripcion = ? where idPaquete = ?";            
+        }
+        stmnt = connection.prepareStatement(query);
+        stmnt.setInt(2, Integer.parseInt(IdPaquete));
+        stmnt.setString(1,datoActualizado);
+        stmnt.executeUpdate();
+        
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaPaquetes.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);

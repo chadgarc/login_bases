@@ -130,7 +130,12 @@ public class TablaClientesController implements Initializable {
     }
 
     @FXML
-    private void ActualizarCliente(ActionEvent event) {
+    private void ActualizarCliente(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("ActualizarCliente.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
 
     @FXML
