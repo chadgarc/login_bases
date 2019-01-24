@@ -44,24 +44,7 @@ ciudad varchar(25),
 pais varchar(20),
 primary key(idDireccion)
 );
-create table vehiculo(
-idVehiculo int auto_increment,
-licencia varchar(10),
-nombreRentadora varchar(20),
-numeroDias varchar(2),
-fechaIngreso date,
-fechaDevolucion date,
-idDireccionIngreso varchar(10),
-idDireccionRetorno varchar(10),
-idCliente varchar(10),
-idPaquete int,
 
-primary key (idVehiculo),
-foreign key(idCliente) references cliente(idCLiente),
-foreign key(idDireccionIngreso) references direccion(idDireccion),
-foreign key(idDireccionRetorno) references direccion(idDireccion),
-foreign key(idPaquete) references paqueteDeViaje(idPaquete)
-);
 create table reservaHotel(
 idReservaHotel int auto_increment,
 idCliente varchar(10),
@@ -73,22 +56,6 @@ primary key (idReservaHotel),
 foreign key(idCliente) references cliente(idCLiente),
 foreign key(idPaquete) references paqueteDeViaje(idPaquete)
 );
-
-#unir hotel con reservaHotel
-create table hotel(
-idHotel int auto_increment,
-nombre varchar(30),
-direccion varchar(10),
-categoria varchar(2),
-
-primary key(idHotel),
-foreign key(direccion) references direccion(idDireccion)
-);
-
-alter table reservaHotel
-add column idHotel int;
-alter table reservaHotel
-add constraint fk_idHotel foreign key (idHotel) references hotel(idHotel);
 
 create table  reservaVuelo(
 idReserva int auto_increment,
