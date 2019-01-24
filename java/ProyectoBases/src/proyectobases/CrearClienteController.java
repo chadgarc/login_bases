@@ -44,6 +44,8 @@ public class CrearClienteController implements Initializable {
     private TextField textFechaNacimiento;
     @FXML
     private Button buttonCrearCliente;
+    @FXML
+    private Button regresar;
 
     /**
      * Initializes the controller class.
@@ -76,6 +78,15 @@ public class CrearClienteController implements Initializable {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
         window.show(); 
+    }
+
+    @FXML
+    private void regresar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaClientes.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
     
 }

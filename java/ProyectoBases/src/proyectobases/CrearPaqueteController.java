@@ -42,6 +42,8 @@ public class CrearPaqueteController implements Initializable {
     private TextArea TextDescripcion;
     @FXML
     private Button BotonCrearPaquete;
+    @FXML
+    private Button regresar;
 
     /**
      * Initializes the controller class.
@@ -74,6 +76,15 @@ public class CrearPaqueteController implements Initializable {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
         window.show(); 
+    }
+
+    @FXML
+    private void regresar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaPaquetes.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
     
 }

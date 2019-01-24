@@ -41,6 +41,8 @@ public class CrearEmpleadoController implements Initializable {
     private TextField textApellido;
     @FXML
     private TextField textCargo;
+    @FXML
+    private Button regresar;
 
     /**
      * Initializes the controller class.
@@ -59,6 +61,15 @@ public class CrearEmpleadoController implements Initializable {
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
         window.show(); 
+    }
+
+    @FXML
+    private void regresar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
     
 }

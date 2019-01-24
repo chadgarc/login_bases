@@ -2,19 +2,26 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.DashboardController">
+<AnchorPane id="AnchorPane" prefHeight="338.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.DashboardController">
    <children>
       <Label fx:id="labelDashboard" layoutX="14.0" layoutY="14.0" text="Dashboard: Agente" underline="true">
          <font>
             <Font name="System Bold Italic" size="12.0" />
          </font>
       </Label>
-      <Button fx:id="buttonEmpleado" layoutX="45.0" layoutY="58.0" mnemonicParsing="false" onAction="#lanzarEmpleado" text="Empleados" />
-      <Button fx:id="buttonPaquetes" layoutX="45.0" layoutY="99.0" mnemonicParsing="false" onAction="#lanzarPaquete" text="Paquetes de Viajes" />
-      <Button fx:id="buttonClientes" layoutX="45.0" layoutY="140.0" mnemonicParsing="false" onAction="#lanzarCliente" text="Clientes" />
-      <Button fx:id="BotonRegistro" layoutX="45.0" layoutY="175.0" mnemonicParsing="false" onAction="#lanzarRegistro" text="Registro de viaje" />
+      <Button fx:id="buttonEmpleado" layoutX="40.0" layoutY="287.0" mnemonicParsing="false" onAction="#lanzarEmpleado" text="Empleados" />
+      <Button fx:id="buttonPaquetes" layoutX="286.0" layoutY="287.0" mnemonicParsing="false" onAction="#lanzarPaquete" text="Paquetes de Viajes" />
+      <Button fx:id="buttonClientes" layoutX="165.0" layoutY="287.0" mnemonicParsing="false" onAction="#lanzarCliente" text="Clientes" />
+      <Button fx:id="BotonRegistro" layoutX="462.0" layoutY="287.0" mnemonicParsing="false" onAction="#lanzarRegistro" text="Registro de viaje" />
+      <ImageView fx:id="imagenLogo" fitHeight="219.0" fitWidth="628.0" layoutX="25.0" layoutY="38.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@logomundotravel..png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

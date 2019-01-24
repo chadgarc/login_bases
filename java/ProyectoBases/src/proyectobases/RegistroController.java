@@ -97,7 +97,12 @@ public class RegistroController implements Initializable {
     }
 
     @FXML
-    private void VerRegistros(ActionEvent event) {
+    private void VerRegistros(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaRegistros.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show();
     }
 
     @FXML

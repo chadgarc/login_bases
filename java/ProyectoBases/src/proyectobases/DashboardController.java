@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 /**
@@ -36,6 +37,8 @@ public class DashboardController implements Initializable {
     private Button buttonClientes;
     @FXML
     private Button BotonRegistro;
+    @FXML
+    private ImageView imagenLogo;
 /**
      * Initializes the controller class.
      */
