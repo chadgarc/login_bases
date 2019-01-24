@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="281.0" prefWidth="212.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.RegistrarNuevoController">
+   <children>
+      <Label fx:id="labelTitulo" layoutX="14.0" layoutY="14.0" text="Nuevo registro">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboBoxPaquete" layoutX="24.0" layoutY="93.0" prefWidth="150.0" />
+      <Label fx:id="labelPaquete" layoutX="24.0" layoutY="63.0" text="Paquete:" />
+      <Label fx:id="labelCliente" layoutX="24.0" layoutY="137.0" text="Cliente:" />
+      <ComboBox fx:id="comboBoxCliente" layoutX="24.0" layoutY="164.0" prefWidth="150.0" />
+      <Button fx:id="botonRegistrar" layoutX="32.0" layoutY="229.0" mnemonicParsing="false" onAction="#Registar" text="Registrar" />
+      <Button fx:id="botonRegresar" layoutX="106.0" layoutY="229.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+   </children>
+</AnchorPane>

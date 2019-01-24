@@ -34,6 +34,8 @@ public class DashboardController implements Initializable {
     private Button buttonPaquetes;
     @FXML
     private Button buttonClientes;
+    @FXML
+    private Button BotonRegistro;
 /**
      * Initializes the controller class.
      */
@@ -42,7 +44,6 @@ public class DashboardController implements Initializable {
         // TODO
     }    
 
-    @FXML
     private void lanzarCreacion(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaEmpleados.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
@@ -72,6 +73,15 @@ public class DashboardController implements Initializable {
     @FXML
     private void lanzarCliente(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaClientes.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show(); 
+    }
+
+    @FXML
+    private void lanzarRegistro(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("Registro.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);

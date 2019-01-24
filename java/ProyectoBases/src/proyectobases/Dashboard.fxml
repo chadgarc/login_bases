@@ -15,6 +15,6 @@
       <Button fx:id="buttonEmpleado" layoutX="45.0" layoutY="58.0" mnemonicParsing="false" onAction="#lanzarEmpleado" text="Empleados" />
       <Button fx:id="buttonPaquetes" layoutX="45.0" layoutY="99.0" mnemonicParsing="false" onAction="#lanzarPaquete" text="Paquetes de Viajes" />
       <Button fx:id="buttonClientes" layoutX="45.0" layoutY="140.0" mnemonicParsing="false" onAction="#lanzarCliente" text="Clientes" />
-      <Button fx:id="BotonRegistro" layoutX="45.0" layoutY="175.0" mnemonicParsing="false" text="Registro de viaje" />
+      <Button fx:id="BotonRegistro" layoutX="45.0" layoutY="175.0" mnemonicParsing="false" onAction="#lanzarRegistro" text="Registro de viaje" />
    </children>
 </AnchorPane>

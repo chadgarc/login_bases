@@ -135,13 +135,18 @@ INSERT INTO empleado values(usuario,nombre,apellido,cargo,clave);
 end;$$
 
 create view conteoRegistros as
-select p.nombre, count(r.idCliente)
+select p.nombre as nombre, count(r.idCliente) as conteo
 from registro r right join paquetedeviaje p on r.idPaquete = p.idPaquete
 group by p.idPaquete;
 
-
-
-
-
-
+delimiter $$
+create procedure crearTablaDatosRegistro(IN Paquete int)
+begin
+drop view if exists DatosRegistro;
+create view DatosRegistro as
+select c.idCliente, c.Nombre, c.Apellido
+from registro r join cliente c on r.idCliente = c.idCliente
+where r.idPaquete = Paquete;
+end;
+$$
 
