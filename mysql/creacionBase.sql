@@ -112,7 +112,7 @@ ciudadDestino varchar(25),
 fechaSalida date,
 fechaRetorno date,
 horaVuelo time,
-idReserva varchar(10),
+idReserva int,
 
 primary key(idVuelo),
 foreign key(idReserva) references reservaVuelo(idReserva)
@@ -151,14 +151,3 @@ create view conteoRegistros as
 select p.nombre as nombre, count(r.idCliente) as conteo
 from registro r right join paquetedeviaje p on r.idPaquete = p.idPaquete
 group by p.idPaquete;
-
-
-
-
-
-
-
-
-
-
-
