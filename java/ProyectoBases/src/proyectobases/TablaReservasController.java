@@ -6,8 +6,10 @@
 package proyectobases;
 
 import Connectivity.ConnectionClass;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,11 +20,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import proyectobases.DBSClasses.TBCliente;
 import proyectobases.DBSClasses.TBReserva;
 
@@ -96,15 +103,47 @@ public class TablaReservasController implements Initializable {
     }
 
     @FXML
-    private void actualizar(ActionEvent event) {
+    private void actualizar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("ActualizarReserva.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show(); 
     }
 
     @FXML
     private void eliminar(ActionEvent event) {
+        TBReserva clienteSeleccionado = TablaReserva.getSelectionModel().getSelectedItem();
+        String usuarioSeleccionado = clienteSeleccionado.getIdReserva();
+        String query = "delete from reservavuelo where idReserva = ?";
+        PreparedStatement pstmt = null;
+        ConnectionClass connectionClass = new ConnectionClass();
+        connection = connectionClass.getConnection();
+        Statement stmnt;
+        ResultSet rs;
+        try {
+            stmnt = connection.createStatement();
+            rs = stmnt.executeQuery("select * from reservaVuelo");
+            oblist.removeAll(oblist);
+            TablaReserva.setItems(oblist);
+            while (rs.next()){
+                oblist.add(new TBReserva(rs.getString("idReserva"),rs.getString("idCliente"),rs.getString("numeroVuelos"),rs.getString("clase"),rs.getString("idPaquete"),rs.getString("idVuelo")));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(TablaEmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        TablaReserva.setItems(oblist);
     }
 
     @FXML
-    private void regresar(ActionEvent event) {
+    private void regresar(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaClientes.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show(); 
     }
     
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="417.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.ActualizarReservaController">
+   <children>
+      <Label layoutX="14.0" layoutY="14.0" text="Actualización de Reserva">
+         <font>
+            <Font name="System Bold Italic" size="12.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="comboboxpaquete" layoutX="95.0" layoutY="53.0" prefHeight="25.0" prefWidth="278.0" />
+      <Label layoutX="36.0" layoutY="57.0" text="Reserva:" />
+      <Label layoutX="36.0" layoutY="110.0" text="Dato a Actualizar:" />
+      <ComboBox fx:id="comboboxdato" layoutX="139.0" layoutY="106.0" prefHeight="25.0" prefWidth="235.0" />
+      <TextArea fx:id="textoactualizacion" layoutX="39.0" layoutY="148.0" prefHeight="200.0" prefWidth="337.0" />
+      <Button fx:id="botonActualizar" layoutX="39.0" layoutY="361.0" mnemonicParsing="false" onAction="#actualizarDatos" text="Actualizar" />
+      <Button fx:id="botonRegresar" layoutX="313.0" layoutY="361.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
+   </children>
+</AnchorPane>
