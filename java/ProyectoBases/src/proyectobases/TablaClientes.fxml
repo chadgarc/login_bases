@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.TablaClientesController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="proyectobases.TablaClientesController">
    <children>
       <Label fx:id="LabelCliente" layoutX="14.0" layoutY="14.0" text="Clientes" underline="true">
          <font>
@@ -26,6 +26,6 @@
       <Button fx:id="BotonEliminarCliente" layoutX="199.0" layoutY="346.0" mnemonicParsing="false" onAction="#EliminarCliente" text="Eliminar Cliente" />
       <Button fx:id="BotonActualizarCliente" layoutX="337.0" layoutY="346.0" mnemonicParsing="false" onAction="#ActualizarCliente" text="Actualizar Cliente" />
       <Button fx:id="BotonRegresar" layoutX="519.0" layoutY="346.0" mnemonicParsing="false" onAction="#regresar" text="Regresar" />
-      <Button fx:id="BotonAgregarPaquete" layoutX="423.0" layoutY="7.0" mnemonicParsing="false" onAction="#regresar" prefHeight="27.0" prefWidth="159.0" text="Agregar Paquete" />
+      <Button fx:id="BotonAgregarReserva" layoutX="423.0" layoutY="7.0" mnemonicParsing="false" onAction="#reserva" prefHeight="27.0" prefWidth="159.0" text="Reservas" />
    </children>
 </AnchorPane>

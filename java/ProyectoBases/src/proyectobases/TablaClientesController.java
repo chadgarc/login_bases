@@ -60,12 +60,12 @@ public class TablaClientesController implements Initializable {
     private Button BotonActualizarCliente;
     @FXML
     private Button BotonRegresar;
-    @FXML
-    private Button BotonAgregarPaquete;
     
     private Connection connection;
     
     private ObservableList<TBCliente> oblist = FXCollections.observableArrayList();
+    @FXML
+    private Button BotonAgregarReserva;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -141,6 +141,15 @@ public class TablaClientesController implements Initializable {
     @FXML
     private void regresar(ActionEvent event) throws IOException {
         Parent dashboardParent = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
+        Scene dashboardScene = new Scene(dashboardParent);
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
+        window.setScene(dashboardScene);
+        window.show(); 
+    }
+
+    @FXML
+    private void reserva(ActionEvent event) throws IOException {
+        Parent dashboardParent = FXMLLoader.load(getClass().getResource("TablaReservas.fxml"));
         Scene dashboardScene = new Scene(dashboardParent);
         Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         window.setScene(dashboardScene);
