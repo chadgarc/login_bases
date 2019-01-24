@@ -94,7 +94,6 @@ create table  reservaVuelo(
 idReserva int auto_increment,
 idCliente varchar(10),
 NumeroVuelos varchar(2),
-CantidadDeViajes varchar(2),
 clase varchar(10),
 idPaquete int,
 
@@ -109,37 +108,17 @@ idVuelo int auto_increment,
 aerolinea varchar(20),
 ciudadOrigen varchar(25),
 ciudadDestino varchar(25),
-fechaSalida date,
-fechaRetorno date,
+fechaSalida varchar(10),
+fechaRetorno varchar(10),
 horaVuelo time,
-idReserva int,
 
-primary key(idVuelo),
-foreign key(idReserva) references reservaVuelo(idReserva)
+primary key(idVuelo)
 );
 
 alter table reservaVuelo
 add column idVuelo int;
 alter table reservaVuelo
 add constraint fk_idVuelo foreign key (idVuelo) references vuelo(idVuelo);
-
-create table crucero(
-idCrucero int auto_increment,
-cabina varchar(15),
-nave varchar(25),
-aerolinea varchar(25),
-puerto varchar(20),
-direccionPuerto varchar(10),
-idCliente varchar(10),
-NumeroDias varchar(2),
-detalle varchar(150),
-idPaquete int,
-
-primary key(idCrucero),
-foreign key(direccionPuerto) references direccion(idDireccion),
-foreign key(idCliente) references cliente(idCliente),
-foreign key(idPaquete) references PaqueteDeViaje(idPaquete)
-);
 
 delimiter $$
 create procedure crearEmpleado(IN usuario varchar(20), IN nombre varchar(20), IN apellido varchar(20), IN cargo varchar(20), IN clave varchar(20))
