@@ -60,6 +60,8 @@ public class TablaClientesController implements Initializable {
     private Button BotonActualizarCliente;
     @FXML
     private Button BotonRegresar;
+    @FXML
+    private Button BotonAgregarPaquete;
     
     private Connection connection;
     
