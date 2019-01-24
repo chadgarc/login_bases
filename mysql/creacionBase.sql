@@ -1,8 +1,10 @@
 create user 'adminbdmundotravel' identified by '1234';
 grant all privileges on bdmundotravel.* to 'adminbdmundotravel';
+
 DROP DATABASE IF EXISTS bdmundotravel;
 CREATE DATABASE bdmundotravel;
 USE bdmundotravel;
+
 CREATE TABLE empleado(
 usuario varchar(20),
 nombre varchar(20),
@@ -43,7 +45,7 @@ pais varchar(20),
 primary key(idDireccion)
 );
 create table vehiculo(
-idVehiculo varchar(15),
+idVehiculo int auto_increment,
 licencia varchar(10),
 nombreRentadora varchar(20),
 numeroDias varchar(2),
@@ -52,51 +54,58 @@ fechaDevolucion date,
 idDireccionIngreso varchar(10),
 idDireccionRetorno varchar(10),
 idCliente varchar(10),
+idPaquete int,
 
 primary key (idVehiculo),
 foreign key(idCliente) references cliente(idCLiente),
 foreign key(idDireccionIngreso) references direccion(idDireccion),
-foreign key(idDireccionRetorno) references direccion(idDireccion)
+foreign key(idDireccionRetorno) references direccion(idDireccion),
+foreign key(idPaquete) references paqueteDeViaje(idPaquete)
 );
 create table reservaHotel(
-idReservaHotel varchar(10),
+idReservaHotel int auto_increment,
 idCliente varchar(10),
 fechaIngreso date,
 fechaSalida date,
+idPaquete int,
 
 primary key (idReservaHotel),
-foreign key(idCliente) references cliente(idCLiente)
+foreign key(idCliente) references cliente(idCLiente),
+foreign key(idPaquete) references paqueteDeViaje(idPaquete)
 );
+
 #unir hotel con reservaHotel
 create table hotel(
-idHotel varchar(10),
+idHotel int auto_increment,
 nombre varchar(30),
 direccion varchar(10),
-categoria varchar(10),
+categoria varchar(2),
 
 primary key(idHotel),
 foreign key(direccion) references direccion(idDireccion)
 );
 
 alter table reservaHotel
-add column idHotel varchar(10);
+add column idHotel int;
 alter table reservaHotel
 add constraint fk_idHotel foreign key (idHotel) references hotel(idHotel);
 
 create table  reservaVuelo(
-idReserva varchar(10),
+idReserva int auto_increment,
 idCliente varchar(10),
 NumeroVuelos varchar(2),
 CantidadDeViajes varchar(2),
 clase varchar(10),
+idPaquete int,
 
 primary key (idReserva),
-foreign key(idCliente) references cliente(idCliente)
+foreign key(idCliente) references cliente(idCliente),
+foreign key(idPaquete) references paqueteDeViaje(idPaquete)
 );
 #unir vuelos
 
 create table vuelo(
-idVuelo varchar(10),
+idVuelo int auto_increment,
 aerolinea varchar(20),
 ciudadOrigen varchar(25),
 ciudadDestino varchar(25),
@@ -110,12 +119,12 @@ foreign key(idReserva) references reservaVuelo(idReserva)
 );
 
 alter table reservaVuelo
-add column idVuelo varchar(10);
+add column idVuelo int;
 alter table reservaVuelo
 add constraint fk_idVuelo foreign key (idVuelo) references vuelo(idVuelo);
 
 create table crucero(
-idCrucero varchar(15),
+idCrucero int auto_increment,
 cabina varchar(15),
 nave varchar(25),
 aerolinea varchar(25),
@@ -124,10 +133,12 @@ direccionPuerto varchar(10),
 idCliente varchar(10),
 NumeroDias varchar(2),
 detalle varchar(150),
+idPaquete int,
 
 primary key(idCrucero),
 foreign key(direccionPuerto) references direccion(idDireccion),
-foreign key(idCliente) references cliente(idCliente)
+foreign key(idCliente) references cliente(idCliente),
+foreign key(idPaquete) references PaqueteDeViaje(idPaquete)
 );
 
 delimiter $$
@@ -141,14 +152,13 @@ select p.nombre as nombre, count(r.idCliente) as conteo
 from registro r right join paquetedeviaje p on r.idPaquete = p.idPaquete
 group by p.idPaquete;
 
-delimiter $$
-create procedure crearTablaDatosRegistro(IN Paquete int)
-begin
-drop view if exists DatosRegistro;
-create view DatosRegistro as
-select c.idCliente as idCliente, c.Nombre as Nombre, c.Apellido as Apellido
-from registro r join cliente c on r.idCliente = c.idCliente
-where r.idPaquete = Paquete;
-end;
-$$
+
+
+
+
+
+
+
+
+
 
