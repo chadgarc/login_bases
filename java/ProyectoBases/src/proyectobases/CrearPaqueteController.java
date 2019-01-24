@@ -35,8 +35,6 @@ import proyectobases.DBSClasses.EmpleadoDataAccessor;
 public class CrearPaqueteController implements Initializable {
 
     @FXML
-    private TextField TextIdPaquete;
-    @FXML
     private TextField TextNombre;
     @FXML
     private TextArea TextDescripcion;
@@ -58,7 +56,7 @@ public class CrearPaqueteController implements Initializable {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.getConnection();
         Statement stmnt=null;
-        String values = "'"+TextIdPaquete.getText().toString()+"', '"+TextNombre.getText().toString()+"', '"+TextDescripcion.getText().toString()+"'";
+        String values = "0, '"+TextNombre.getText().toString()+"', '"+TextDescripcion.getText().toString()+"'";
         try {
             stmnt = connection.createStatement();
         } catch (SQLException ex) {
