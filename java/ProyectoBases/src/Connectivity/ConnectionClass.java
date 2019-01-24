@@ -16,7 +16,7 @@ public class ConnectionClass {
     public Connection connection;
     public Connection getConnection(){
         String dbName = "bdmundotravel";
-        String userName = "root";
+        String userName = "adminbdmundotravel";
         String password = "1234";
         
         try {

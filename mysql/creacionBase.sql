@@ -1,3 +1,5 @@
+create user 'adminbdmundotravel' identified by '1234';
+grant all privileges on bdmundotravel.* to 'adminbdmundotravel';
 DROP DATABASE IF EXISTS bdmundotravel;
 CREATE DATABASE bdmundotravel;
 USE bdmundotravel;
@@ -144,7 +146,7 @@ create procedure crearTablaDatosRegistro(IN Paquete int)
 begin
 drop view if exists DatosRegistro;
 create view DatosRegistro as
-select c.idCliente, c.Nombre, c.Apellido
+select c.idCliente as idCliente, c.Nombre as Nombre, c.Apellido as Apellido
 from registro r join cliente c on r.idCliente = c.idCliente
 where r.idPaquete = Paquete;
 end;
